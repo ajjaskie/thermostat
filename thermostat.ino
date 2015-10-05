@@ -1,4 +1,5 @@
-float tempCal = 6;
+#define aref_voltage 3.3
+float tempCal = 2.2;
 float setPoint = 67.0;
 float lowLimit = 2.0;
 float highLimit = 2.0;
@@ -12,11 +13,13 @@ bool heating = false;
 
 void setup() {
   Serial.begin(9600);
+  analogReference(EXTERNAL);
   pinMode(ledPin, OUTPUT);
   pinMode(heatPin, OUTPUT);
 }
 
 void loop() {
+  delay(1000);
   float temperature = getTemperature(tempPin);
   Serial.println(temperature);
 
@@ -62,7 +65,7 @@ bool shouldStopHeat(int temperature) {
 }
 
 float getTemperature(int pin) {
-  float temperature = analogRead(pin) * .004882814;
+  float temperature = (analogRead(pin) * aref_voltage) / 1024.0;
   temperature = (((temperature - .5) * 100) * 1.8) + 32 + tempCal;
   return(temperature);
 }

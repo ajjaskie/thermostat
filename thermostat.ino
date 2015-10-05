@@ -3,9 +3,9 @@ float tempCal = 2.2;
 float setPoint = 67.0;
 float lowLimit = 2.0;
 float highLimit = 2.0;
-long minimumCycleLengthMinutes = 8;
-long minimumBetweenCyclesMinutes = 12;
 
+unsigned long minimumCycleLengthMinutes = 8;
+unsigned long minimumBetweenCyclesMinutes = 12;
 int tempPin = 0;
 int heatPin = 2;
 int ledPin = 13;
@@ -29,7 +29,7 @@ void loop() {
       digitalWrite(heatPin, LOW);
       digitalWrite(ledPin, LOW);
       heating = false;
-      long timeBetweenCycles = minToMs(minimumBetweenCyclesMinutes);
+      unsigned long timeBetweenCycles = minToMs(minimumBetweenCyclesMinutes);
       Serial.print("Heat off. Waiting ");
       Serial.print(timeBetweenCycles);
       Serial.println("ms");
@@ -41,7 +41,7 @@ void loop() {
       digitalWrite(heatPin, HIGH);
       digitalWrite(ledPin, HIGH);
       heating = true;
-      long cycleTime = minToMs(minimumCycleLengthMinutes);
+      unsigned long cycleTime = minToMs(minimumCycleLengthMinutes);
       Serial.print("Heat on. Waiting ");
       Serial.print(cycleTime);
       Serial.println("ms");
@@ -52,7 +52,7 @@ void loop() {
   delay(5000);
 }
 
-long minToMs(long minutes) {
+unsigned long minToMs(unsigned long minutes) {
   return(minutes * 60 * 1000);
 }
 
